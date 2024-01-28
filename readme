@@ -1,0 +1,137 @@
+Biblioteka
+
+## Informacje o projekcie
+
+- API zostało napisane w języku Python z użyciem frameworku Django.
+- Wykorzystuje bazę danych SQLite3 do przechowywania danych.
+
+Uruchamianie Aplikacji
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+Użytkowanie
+
+## Użycie Postmana
+
+### Wysyłanie żądania GET dla Konkretnego Użytkownika
+
+Aby wykonać żądanie GET dla konkretnego użytkownika, wykonaj poniższe kroki w aplikacji Postman:
+
+1. Wybierz zakładkę "Authorization".
+2. Wybierz typ autoryzacji "Bearer Token".
+3. Wprowadź otrzymany wcześniej token do pola tokena.
+4. Wykonaj żądanie GET na odpowiednim endpointzie.
+
+Token dostępowy jest w ciele odpowiedzi po poprawnym zalogowaniu.
+
+### Wysyłanie żądania POST z Użyciem CSRF Token
+
+Aby wykonać żądanie POST, które wymaga CSRF Token, wykonaj poniższe kroki w aplikacji Postman:
+
+1. Wybierz zakładkę "Headers".
+2. Dodaj nowy nagłówek, używając klucza `X-CSRFToken`.
+3. Wartość klucza to token CSRF, który można uzyskać poprzez zalogowanie się i uzyskanie odpowiedzi z serwera.
+4. Wprowadź odpowiednie dane do ciała żądania POST.
+5. Wykonaj żądanie POST na odpowiednim endpointzie.
+
+
+### Rejestracja Użytkownika
+  - Metoda: POST
+  - URL: http://localhost:8000/register/
+  - Body (raw JSON):
+    ```json
+    {
+      "username": "test_user",
+      "name": "name_user",
+      "password": "test_password"
+    }
+    ```
+
+### Logowanie Użytkownika
+  - Metoda: POST
+  - URL: http://localhost:8000/login/
+  - Body (raw JSON):
+    ```json
+    {
+      "username": "test_user",
+      "password": "test_password"
+    }
+    ```
+
+### Rejestracja Administratora
+  - Metoda: POST
+  - URL: http://localhost:8000/register-admin/
+  - Body (raw JSON):
+    ```json
+    {
+      "username": "admin_user",
+      "name": "admin_name",
+      "password": "admin_password"
+    }
+    ```
+
+### Logowanie Administratora
+  - Metoda: POST
+  - URL: http://localhost:8000/login-admin/
+  - Body (raw JSON):
+    ```json
+    {
+      "username": "admin_user",
+      "password": "admin_password"
+    }
+    ```
+
+### Lista i Dodawanie Książek
+  - Metoda: GET (do listy), POST (do dodawania)
+  - URL: http://localhost:8000/books/
+  - Body (raw JSON) dla dodawania:
+    ```json
+    {
+      "title": "Example Book",
+      "isbn": "1234567890",
+      "author": "John Doe"
+    }
+    ```
+
+### Szczegóły, Edycja i Usunięcie Książki
+  - Metoda: GET (do szczegółów), PUT (do edycji), DELETE (do usunięcia)
+  - URL: http://localhost:8000/books/{book_id}/
+    - Zastąp {book_id} rzeczywistym identyfikatorem książki.
+
+### Lista Wszystkich Książek
+  - Metoda: GET
+  - URL: http://localhost:8000/all-books/
+
+### Lista Dostępnych Książek
+  - Metoda: GET
+  - URL: http://localhost:8000/available-books/
+
+### Lista Wypożyczonych Książek przez Użytkownika
+  - Metoda: GET
+  - URL: http://localhost:8000/user-loans/
+
+### Wypożyczenie Książki przez Użytkownika
+  - Metoda: POST
+  - URL: http://localhost:8000/borrow-book/
+  - Body (raw JSON):
+    ```json
+    {
+      "book_id": 1
+    }
+    ```
+    - Zastąp 1 rzeczywistym identyfikatorem książki.
+
+### Zwrot Wypożyczonej Książki przez Użytkownika
+  - Metoda: POST
+  - URL: http://localhost:8000/return-book/
+  - Body (raw JSON):
+    ```json
+    {
+      "book_id": 1
+    }
+    ```
+    - Zastąp 1 rzeczywistym identyfikatorem książki.
